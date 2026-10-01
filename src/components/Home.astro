@@ -1,0 +1,254 @@
+---
+import '@fontsource/cormorant-garamond/latin-500.css';
+import '@fontsource/cormorant-garamond/latin-500-italic.css';
+import '@fontsource/cormorant-garamond/latin-600.css';
+import '@fontsource/manrope/latin-400.css';
+import '@fontsource/manrope/latin-500.css';
+import '@fontsource/manrope/latin-600.css';
+import '../styles/global.css';
+import Icon from './Icon.astro';
+import { cocktails, food, type Lang } from '../data/menu';
+import { site, events } from '../data/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const it = lang === 'it';
+const l = (a: string, b: string) => it ? a : b;
+const languageIndex = it ? 0 : 1;
+const title = l('Nessun Dorma | Cocktail bar e pub ad Agira', 'Nessun Dorma | Cocktail bar & pub in Agira');
+const description = l('Cocktail, focacce, musica e giochi tra le pareti di pietra del Nessun Dorma. Scopri il menu e vieni a trovarci in Via Cairoli 21, Agira.', 'Cocktails, focaccia, music and games inside Nessun Dorma’s stone walls. Explore the menu and find us at Via Cairoli 21, Agira, Sicily.');
+const url = Astro.site ? new URL(it ? '/' : '/en/', Astro.site).href : undefined;
+const nav = [
+  ['locale', l('Il locale', 'The bar')], ['food', 'Food'], ['cocktail', 'Cocktail'],
+  ['servizi', l('Da vivere', 'Stay a while')], ['eventi', l('Eventi', 'Events')], ['contatti', l('Dove siamo', 'Find us')],
+];
+const schema = {
+  '@context': 'https://schema.org', '@type': 'BarOrPub', name: site.name,
+  telephone: site.phone, address: { '@type': 'PostalAddress', streetAddress: site.address, addressLocality: site.city, addressCountry: 'IT' },
+  ...(url ? { url } : {}), sameAs: [site.instagram, site.facebook],
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday','Wednesday','Thursday'], opens: '17:00', closes: '23:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday','Saturday','Sunday'], opens: '17:00', closes: '03:00' },
+  ],
+};
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#181514" />
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={it ? 'it_IT' : 'en_GB'} />
+    {url && <><link rel="canonical" href={url} /><meta property="og:url" content={url} /></>}
+    <link rel="alternate" hreflang="it" href={Astro.site ? new URL('/', Astro.site).href : '/'} />
+    <link rel="alternate" hreflang="en" href={Astro.site ? new URL('/en/', Astro.site).href : '/en/'} />
+    <link rel="alternate" hreflang="x-default" href={Astro.site ? new URL('/', Astro.site).href : '/'} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><filter id="logo-ink" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .949 0 0 0 0 .914 0 0 0 0 .863 -.2126 -.7152 -.0722 0 1" /></filter></defs></svg>
+    <a href="#main" class="skip-link">{l('Vai al contenuto', 'Skip to content')}</a>
+    <header class="site-header">
+      <a class="brand" href={it ? '/' : '/en/'} aria-label="Nessun Dorma — Home">
+        <img src="/images/logo.jpg" width="1536" height="680" alt="Nessun Dorma Cocktail Bar" />
+      </a>
+      <nav class="desktop-nav" aria-label={l('Navigazione principale', 'Main navigation')}>
+        {nav.map(([id, text]) => <a href={`#${id}`}>{text}</a>)}
+      </nav>
+      <div class="header-actions">
+        <div class="language-switch" aria-label={l('Lingua', 'Language')}>
+          <a href="/" lang="it" aria-label="Italiano" aria-current={it ? 'page' : undefined} class:list={{ active: it }}>IT</a>
+          <span aria-hidden="true">/</span>
+          <a href="/en/" lang="en" aria-label="English" aria-current={!it ? 'page' : undefined} class:list={{ active: !it }}>EN</a>
+        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label={l('Apri menu di navigazione','Open navigation menu')} data-open-label={l('Apri menu di navigazione','Open navigation menu')} data-close-label={l('Chiudi menu di navigazione','Close navigation menu')}><span></span><span></span></button>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav" aria-label={l('Navigazione mobile', 'Mobile navigation')} hidden>
+        {nav.map(([id, text], i) => <a href={`#${id}`}><span>0{i + 1}</span>{text}</a>)}
+        <a class="mobile-phone" href={site.phoneHref}>{site.phone}</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-image">
+          <img src="/images/atmosfera.webp" srcset="/images/atmosfera-640.webp 640w, /images/atmosfera.webp 1536w" sizes="(max-width: 700px) 100vw, 75vw" width="1536" height="1152" fetchpriority="high" alt={l('La sala del Nessun Dorma: archi di pietra, luci rosse e persone insieme', 'Stone arches, red lights and people together at Nessun Dorma')} />
+        </div>
+        <div class="hero-content wrap">
+          <p class="eyebrow hero-eyebrow"><span class="tiny-line"></span> Cocktail bar & pub <span class="hero-place">{l('Agira, Sicilia', 'Agira, Sicily')}</span></p>
+          <h1 id="hero-title">Nessun<br /><em>Dorma.</em></h1>
+          <div class="hero-copy">
+            <p>{l('Sotto la roccia.', 'Beneath the rock.')}<br />{l('Dentro la notte.', 'Into the night.')}</p>
+            <a href="#cocktail" class="button button-wine">{l('Scopri il menu', 'Explore the menu')}</a>
+          </div>
+        </div>
+        <div class="hero-footer wrap">
+          <a href="#contatti">Via Cairoli 21, Agira</a>
+          <span>{l('Dalle 17:00, dal martedì alla domenica', 'From 5 pm, Tuesday to Sunday')}</span>
+          <a class="scroll-cue" href="#locale">{l('Entra nel nostro mondo', 'Step inside')}<span class="scroll-track" aria-hidden="true"></span></a>
+        </div>
+      </section>
+
+      <div class="rhythm-strip" aria-hidden="true"><span>Cocktail</span><i>✳</i><span>Food</span><i>✳</i><span>Music</span><i>✳</i><span>Good company</span><i>✳</i></div>
+
+      <section id="locale" class="story section wrap" aria-labelledby="story-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span class="section-number">01</span> {l('Il nostro posto', 'Our place')}</p>
+          <h2 id="story-title">{l('La pietra custodisce.', 'The stone holds the stories.')}<br /><em>{l('La notte racconta.', 'The night makes new ones.')}</em></h2>
+        </div>
+        <div class="story-grid">
+          <figure class="story-photo reveal">
+            <img src="/images/mario.webp" srcset="/images/mario-640.webp 640w, /images/mario.webp 1400w" sizes="(max-width: 700px) 100vw, 50vw" width="1400" height="933" loading="lazy" alt={l('Mario prepara un cocktail con lo shaker dietro il bancone in pietra', 'Mario shaking a cocktail behind the stone bar')} />
+            <figcaption><span>{l('Mario, dietro il bancone.', 'Mario, behind the bar.')}</span><span>Nessun Dorma / Agira</span></figcaption>
+          </figure>
+          <div class="story-copy reveal">
+            <span class="gecko" aria-hidden="true"><img src="/images/logo.jpg" alt="" width="1536" height="680" loading="lazy" /></span>
+            <p class="lead">{l('Un cocktail. Una partita. E quella voglia di restare ancora un po’.', 'A cocktail. A game. And every reason to stay a little longer.')}</p>
+            <p>{l('Ad Agira, in via Cairoli, il Nessun Dorma trova spazio sotto una roccia. Pietra viva, pareti bordeaux e luci calde fanno da cornice alle serate di Mario, tra cocktail, focacce e compagnia.', 'In Via Cairoli, Agira, Nessun Dorma sits beneath a rock. Exposed stone, burgundy walls and warm lights set the scene for evenings with Mario, cocktails, focaccia and good company.')}</p>
+            <a class="text-link" href="#servizi">{l('Prenditi il tuo tempo', 'Make yourself at home')}</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="food" class="food-section section" aria-labelledby="food-title">
+        <div class="wrap">
+          <div class="food-intro">
+            <div class="food-heading reveal">
+              <p class="eyebrow"><span class="section-number">02</span> {l('Da mangiare', 'Something to eat')}</p>
+              <h2 id="food-title">{l('La tua focaccia.', 'Your focaccia.')}<br /><em>{l('A modo tuo.', 'Your way.')}</em></h2>
+              <p>{l('Scegli gli ingredienti che ti piacciono e raccontaci la tua combinazione. Il gusto della serata lo decidi tu.', 'Pick your favourite ingredients and tell us your combination. Make it your own.')}</p>
+              <span class="small-label">{l('Componi la tua focaccia', 'Build your focaccia')}</span>
+            </div>
+            <figure class="food-photo reveal">
+              <img src="/images/tagliere.webp" srcset="/images/tagliere-640.webp 640w, /images/tagliere.webp 1152w" sizes="(max-width: 700px) 90vw, 40vw" width="1152" height="1536" loading="lazy" alt={l('Un tagliere di salumi servito al Nessun Dorma', 'A cured meat board served at Nessun Dorma')} />
+              <figcaption>{l('A tavola, al Nessun Dorma.', 'At the table, at Nessun Dorma.')}</figcaption>
+            </figure>
+          </div>
+          <div class="food-menu reveal">
+            {food.map((group, i) => <div class="food-category">
+              <div class="category-heading"><span class="small-number">0{i + 1}</span><h3>{group[lang]}</h3></div>
+              <ul>{group.items.map(item => <li>{item[languageIndex]}</li>)}</ul>
+            </div>)}
+          </div>
+          <p class="allergen-note">{l('Per informazioni sugli allergeni, chiedi al personale.', 'Please ask our staff for allergen information.')}</p>
+        </div>
+      </section>
+
+      <section id="cocktail" class="drinks section wrap" aria-labelledby="drinks-title">
+        <div class="drinks-heading reveal">
+          <div><p class="eyebrow"><span class="section-number">03</span> {l('Da bere', 'Something to drink')}</p><h2 id="drinks-title">{l('Ogni serata,', 'Every evening,')}<br /><em>{l('il suo cocktail.', 'its own cocktail.')}</em></h2></div>
+          <div class="drinks-intro"><span class="menu-count">44<span>{l('classici e variazioni', 'classics & variations')}</span></span><p>{l('Dal primo Americano all’ultimo sorso di un Martini. Esplora la carta, un bicchiere alla volta.', 'From your first Americano to the last sip of a Martini. Explore the list, one glass at a time.')}</p></div>
+        </div>
+        <div class="cocktail-menu reveal">
+          {cocktails.map((group, i) => <details class="cocktail-group" open={i === 0}>
+            <summary><span class="small-number">0{i + 1}</span><h3>{group[lang]}</h3><span class="group-count">{String(group.items.length).padStart(2,'0')} cocktail{!it && group.items.length !== 1 ? 's' : ''}</span><span class="plus" aria-hidden="true"></span></summary>
+            <div class="drink-list">{group.items.map(drink => <article class="drink"><h4>{drink.name}</h4><p>{drink[lang]}</p></article>)}</div>
+          </details>)}
+        </div>
+        <p class="allergen-note">{l('Per informazioni sugli ingredienti e sugli allergeni, chiedi a Mario.', 'Ask Mario about ingredients and allergens.')}</p>
+      </section>
+
+      <section id="servizi" class="stay-section section" aria-labelledby="stay-title">
+        <div class="wrap stay-layout">
+          <div class="stay-heading reveal"><p class="eyebrow"><span class="section-number">04</span> {l('Da vivere', 'Stay a while')}</p><h2 id="stay-title">{l('Il bello è', 'The best part?')}<br /><em>{l('restare.', 'Staying.')}</em></h2><p>{l('Metti via la fretta. C’è spazio per una sfida tra amici, una partita improvvisata o una serata tutta vostra.', 'Leave the rush outside. There’s time for a friendly challenge, a game together or an evening of your own.')}</p><a class="button button-outline" href={site.phoneHref}>{l('Parliamone con Mario', 'Talk to Mario')}</a></div>
+          <div class="service-list reveal">
+            <article><span>01</span><div><h3>{l('Carambola & freccette', 'Billiards & darts')}</h3><p>{l('Il tavolo da carambola e il bersaglio ti aspettano. Chi comincia?', 'The billiard table and dartboard are waiting. Who’s going first?')}</p></div></article>
+            <article><span>02</span><div><h3>{l('Giochi da tavolo', 'Board games')}</h3><p>{l('Scacchi, dama e carte a disposizione. Scegli il gioco, trova il tuo avversario.', 'Chess, draughts and cards are available. Pick your game, find your opponent.')}</p></div></article>
+            <article><span>03</span><div><h3>{l('Una serata tutta vostra', 'Make a night of it')}</h3><p>{l('Feste ed eventi privati tra le pareti di pietra del locale. Contatta Mario per organizzare il tuo.', 'Private parties and events within the bar’s stone walls. Contact Mario to plan yours.')}</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="eventi" class="events section wrap" aria-labelledby="events-title">
+        <div class="events-heading reveal"><div><p class="eyebrow"><span class="section-number">05</span> {l('Le nostre serate', 'Our nights')}</p><h2 id="events-title">{l('La notte', 'The night')}<br /><em>{l('si fa sentire.', 'has a soundtrack.')}</em></h2></div><div><p>{l('DJ set, musica dal vivo e ricordi da tenere. Qualche serata che abbiamo vissuto insieme.', 'DJ sets, live music and memories to keep. A few nights we’ve shared.')}</p><a class="text-link" href={site.instagram} target="_blank" rel="noopener noreferrer">{l('Le novità su Instagram', 'The latest on Instagram')}</a></div></div>
+        <div class="archive-label"><span class="tiny-line"></span>{l('Dall’archivio · Eventi passati', 'From the archive · Past events')}</div>
+        <div class="event-grid">
+          {events.map((event, i) => <article class="event-card reveal">
+            <a class="poster-link" href={`/posters/${event.image}.webp`} target="_blank" rel="noopener" data-poster data-title={event.title} data-caption={event.date[languageIndex]} aria-label={`${l('Apri la locandina', 'Open poster')}: ${event.title}`}>
+              <div class="poster-frame"><img src={`/posters/${event.image}.webp`} width={event.width} height={event.height} loading="lazy" alt={`${l('Locandina evento passato', 'Past event poster')}: ${event.title}, ${event.performer}, ${event.date[languageIndex]}`} /></div>
+              <span class="poster-view">{l('Vedi locandina', 'View poster')}<span class="plus" aria-hidden="true"></span></span>
+            </a>
+            <div class="event-meta"><span>{event.date[languageIndex]}</span><span>{l('Evento passato', 'Past event')}</span></div>
+            <h3>{event.title}</h3><p>{event.detail} <span aria-hidden="true">/</span> {event.performer}</p>
+          </article>)}
+        </div>
+      </section>
+
+      <div class="photo-interlude wrap">
+        <figure class="detail-photo reveal"><img src="/images/pausa.webp" srcset="/images/pausa-640.webp 640w, /images/pausa.webp 1000w" sizes="(max-width: 700px) 45vw, 30vw" width="1000" height="1333" loading="lazy" alt={l('Una tisana e una fetta di crostata sul tavolo del locale', 'Tea and a slice of tart on a table at the bar')} /></figure>
+        <p class="interlude-text reveal">{l('Ci sono posti.', 'Some places.')}<br />{l('E poi ci sono', 'Just feel like')}<br /><em>{l('i nostri posti.', 'your places.')}</em></p>
+        <figure class="portrait-photo reveal"><img src="/images/ritratto.webp" srcset="/images/ritratto-640.webp 640w, /images/ritratto.webp 1000w" sizes="(max-width: 700px) 42vw, 24vw" width="1000" height="1333" loading="lazy" alt={l('Un ritratto tra le luci rosse del Nessun Dorma', 'A portrait in the red light at Nessun Dorma')} /></figure>
+      </div>
+
+      <section id="contatti" class="contact-section section" aria-labelledby="contact-title">
+        <div class="wrap">
+          <div class="contact-top reveal"><p class="eyebrow"><span class="section-number">06</span> {l('Ci vediamo qui', 'See you here')}</p><h2 id="contact-title">{l('La serata', 'Your night')}<br /><em>{l('comincia qui.', 'starts here.')}</em></h2></div>
+          <div class="contact-grid reveal">
+            <div class="contact-address"><p class="small-label">Nessun Dorma Cocktail Bar</p><address>Via Cairoli 21<br />{l('Agira, Sicilia', 'Agira, Sicily')}</address><a class="button button-cream" href={site.directions} target="_blank" rel="noopener noreferrer"><Icon name="pin" />{l('Come arrivare', 'Get directions')}</a></div>
+            <div class="opening-hours"><h3>{l('I nostri orari', 'Opening hours')}</h3><dl><div><dt>{l('Lunedì', 'Monday')}</dt><dd>{l('Chiuso', 'Closed')}</dd></div><div><dt>{l('Martedì — Giovedì', 'Tuesday — Thursday')}</dt><dd>17:00 — 23:00</dd></div><div><dt>{l('Venerdì — Domenica', 'Friday — Sunday')}</dt><dd>17:00 — 03:00</dd></div></dl><p>{l('Nel weekend, fino alle 3 del giorno successivo.', 'At weekends, open until 3 am the following morning.')}</p></div>
+            <div class="contact-direct"><h3>{l('Facciamoci sentire', 'Let’s keep in touch')}</h3><a href={site.phoneHref} class="phone"><Icon name="phone" />{site.phone}</a><div class="social-links"><a href={site.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" /><span>Instagram</span></a><a href={site.facebook} target="_blank" rel="noopener noreferrer"><Icon name="facebook" /><span>Facebook</span></a></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer wrap"><a class="brand footer-brand" href={it ? '/' : '/en/'} aria-label="Nessun Dorma — Home"><img src="/images/logo.jpg" alt="Nessun Dorma Cocktail Bar" width="1536" height="680" loading="lazy" /></a><p>© {new Date().getFullYear()} Nessun Dorma · Agira</p><a class="text-link" href="#main">{l('Torna su', 'Back to top')}</a></footer>
+
+    <dialog class="poster-dialog" aria-labelledby="poster-title"><div class="dialog-top"><div><h2 id="poster-title"></h2><p id="poster-caption"></p></div><button type="button" class="dialog-close" aria-label={l('Chiudi locandina', 'Close poster')}>×</button></div><img class="dialog-image" alt="" /><p class="dialog-status">{l('Archivio · Evento passato', 'Archive · Past event')}</p></dialog>
+
+    <script>
+      const header = document.querySelector<HTMLElement>('.site-header');
+      const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      const setMenu = (open: boolean) => {
+        toggle?.setAttribute('aria-expanded', String(open));
+        toggle?.setAttribute('aria-label', (open ? toggle.dataset.closeLabel : toggle.dataset.openLabel) || 'Menu');
+        if (mobileNav) mobileNav.hidden = !open;
+        header?.classList.toggle('menu-open', open);
+        document.body.classList.toggle('menu-open', open);
+      };
+      toggle?.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+      mobileNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') { setMenu(false); toggle.focus(); } });
+      header?.addEventListener('focusout', () => { setTimeout(() => { if (!header.contains(document.activeElement)) setMenu(false); }, 0); });
+      const desktop = matchMedia('(min-width: 1101px)');
+      desktop.addEventListener('change', () => { if (desktop.matches) setMenu(false); });
+      const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 24);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+      if (!reduceMotion.matches && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold: 0.07 });
+        document.querySelectorAll('.reveal').forEach(el => { el.classList.add('will-reveal'); observer.observe(el); });
+      }
+
+      const dialog = document.querySelector<HTMLDialogElement>('.poster-dialog');
+      const dialogImage = dialog?.querySelector<HTMLImageElement>('.dialog-image');
+      document.querySelectorAll<HTMLAnchorElement>('[data-poster]').forEach(link => link.addEventListener('click', e => {
+        if (!dialog || !dialogImage || typeof dialog.showModal !== 'function') return;
+        e.preventDefault();
+        dialogImage.src = link.href;
+        dialogImage.alt = link.querySelector('img')?.alt || '';
+        const title = dialog.querySelector('#poster-title');
+        const caption = dialog.querySelector('#poster-caption');
+        if (title) title.textContent = link.dataset.title || '';
+        if (caption) caption.textContent = link.dataset.caption || '';
+        dialog.showModal();
+        document.body.classList.add('dialog-open');
+      }));
+      dialog?.querySelector('button')?.addEventListener('click', () => dialog.close());
+      dialog?.addEventListener('close', () => document.body.classList.remove('dialog-open'));
+      dialog?.addEventListener('click', e => { if (e.target === dialog) { const r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close(); } });
+
+      // Il cambio lingua mantiene la sezione che il visitatore sta consultando.
+      document.querySelectorAll<HTMLAnchorElement>('.language-switch a').forEach(link => link.addEventListener('click', () => { if (window.location.hash) link.hash = window.location.hash; }));
+    </script>
+  </body>
+</html>

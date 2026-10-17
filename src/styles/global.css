@@ -84,7 +84,7 @@ h2 em{color:var(--wine-light)}
 
 .section-heading{max-width:960px;margin-bottom:60px}
 .story-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(60px,8.5vw,140px);align-items:center}
-.story-photo img{width:100%;aspect-ratio:1.16;object-fit:cover;object-position:54% 50%}
+.story-photo img{width:100%;aspect-ratio:1.16;object-fit:cover;object-position:62% 50%}
 .story-photo figcaption{display:flex;justify-content:space-between;gap:16px;font-size:12px;color:var(--muted);padding-top:16px}
 .story-copy{padding-block:15px}
 .gecko{position:relative;display:block;width:84px;height:108px;overflow:hidden;margin-bottom:35px;transform:rotate(-9deg)}
@@ -104,9 +104,9 @@ h2 em{color:var(--wine-light)}
 .gallery-tile:hover img{transform:scale(1.035)}
 .gallery-tile figcaption{position:absolute;z-index:1;bottom:16px;left:20px;right:20px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;text-shadow:0 1px 12px #000}
 .gallery-arch{grid-column:span 9}.gallery-mirror{grid-column:span 3}
-.gallery-bar{grid-column:span 5}.gallery-mario{grid-column:span 7}
-.gallery-art{grid-column:span 3}.gallery-stone{grid-column:span 6}.gallery-game{grid-column:span 3}
-.gallery-arch img{object-position:center 53%}.gallery-mario img{object-position:center 47%}.gallery-bar img{object-position:45% center}
+.gallery-bar{grid-column:span 7}.gallery-art{grid-column:span 5}
+.gallery-stone{grid-column:span 9}.gallery-game{grid-column:span 3}
+.gallery-arch img{object-position:center 53%}.gallery-bar img{object-position:45% center}
 .gallery-art img{object-position:center 54%}.gallery-game img{object-position:center 48%}
 
 .food-section{background:#24201c;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -251,15 +251,15 @@ address{font-family:var(--serif);font-size:34px;font-style:normal;line-height:1.
   .hero-copy{margin-top:35px;flex-direction:column;align-items:flex-start;gap:25px}.hero-copy p{font-size:16px}.hero-copy .button{min-height:52px}
   .hero-footer{min-height:89px;gap:15px;align-items:center}.hero-footer>a:first-child{font-size:12px;max-width:130px}.scroll-cue{font-size:12px;gap:13px}.scroll-track{height:24px}
   .rhythm-strip{min-height:68px;gap:15px;padding-inline:24px;justify-content:space-between}.rhythm-strip span{font-size:23px}.rhythm-strip i{font-size:13px}.rhythm-strip i:last-child{display:none}.rhythm-strip span:last-of-type{font-size:19px}
-  .section-heading{margin-bottom:38px}.story-grid{grid-template-columns:1fr;gap:38px}.story-photo img{aspect-ratio:1.05;object-position:55% 50%}.story-photo figcaption{font-size:12px}.story-photo figcaption>span:last-child{display:none}
+  .section-heading{margin-bottom:38px}.story-grid{grid-template-columns:1fr;gap:38px}.story-photo img{aspect-ratio:1.05;object-position:62% 50%}.story-photo figcaption{font-size:12px}.story-photo figcaption>span:last-child{display:none}
   .story-copy{padding:0}.story-copy .lead{font-size:35px;max-width:500px;margin-bottom:23px}.story-copy>p:not(.lead){font-size:15px;max-width:600px}.gecko{float:right;scale:.72;transform:rotate(8deg);margin:-16px 0 0 10px;width:68px;height:90px;transform-origin:top right}.story-copy .text-link{margin-top:19px}
   .place-gallery{padding-block:75px}.gallery-intro{display:block;margin-bottom:30px}.gallery-intro h2{font-size:65px}.gallery-intro>p{margin-top:23px;max-width:450px}
   .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;gap:9px}
   .gallery-tile{height:260px}.gallery-tile figcaption{font-size:10px;left:13px;right:13px;bottom:11px;letter-spacing:.08em}
-  .gallery-arch,.gallery-bar,.gallery-mario,.gallery-stone{grid-column:1/-1;height:260px}
+  .gallery-arch,.gallery-bar,.gallery-stone{grid-column:1/-1;height:260px}
   .gallery-mirror,.gallery-art{grid-column:auto;height:300px}
   .gallery-mirror{grid-column:1;grid-row:2}.gallery-art{grid-column:2;grid-row:2}
-  .gallery-bar{grid-row:3}.gallery-mario{grid-row:4}.gallery-stone{grid-row:5}.gallery-game{grid-row:6;grid-column:1/-1;height:280px}
+  .gallery-bar{grid-row:3}.gallery-stone{grid-row:4}.gallery-game{grid-row:5;grid-column:1/-1;height:280px}
   .gallery-stone{height:225px}
   .food-intro{grid-template-columns:1fr;gap:40px;margin-bottom:45px}.food-heading h2{font-size:62px}.food-heading>p:not(.eyebrow){font-size:15px;margin-top:24px}.food-heading .small-label{margin-top:25px}
   .food-photo{margin:0 8px 0 5px;padding-right:24px;padding-bottom:25px}.food-photo img{aspect-ratio:1.13;object-position:50% 46%}.food-photo figcaption{font-size:17px}.food-menu{gap:35px 30px;padding-top:28px}.category-heading{gap:8px;margin-bottom:18px}.category-heading h3{font-size:26px;white-space:normal}.food-category li{font-size:14px;line-height:1.75;margin-bottom:6px}.small-number{font-size:12px}.allergen-note{font-size:12px;margin-top:28px}

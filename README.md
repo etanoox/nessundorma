@@ -44,7 +44,7 @@ Non servono database, funzioni server o un adattatore Cloudflare. Nessun servizi
 
 Le foto sono fornite da Giuseppe per questo progetto. Il logo ufficiale è conservato senza ridisegno. Le fotografie sono ottimizzate in WebP con conversione in sRGB; il ritaglio visivo dipende dal layout. I font Cormorant Garamond e Manrope sono serviti localmente dai pacchetti Fontsource. Non vengono caricati font, mappe o feed social da terzi all’apertura della pagina. I collegamenti esterni si attivano solo quando il visitatore li apre. Nessun analytics, cookie di tracciamento, form o invio automatico è integrato.
 
-La sezione fotografica del locale contiene i sette nuovi scatti: arco, specchio, dettagli del banco, Mario al lavoro, dipinto, parete in pietra e carambola. Lo scatto della parete era allegato sia in JPG sia in WebP: sul sito appare una sola volta in WebP.
+I sette nuovi scatti sono distribuiti tra il racconto del locale (Mario al lavoro) e la galleria (arco, specchio, dettagli del banco, dipinto, parete in pietra e carambola). Lo scatto della parete era allegato sia in JPG sia in WebP: sul sito appare una sola volta in WebP.
 
 ## Contenuti da confermare prima della versione definitiva
 

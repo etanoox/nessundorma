@@ -9,7 +9,8 @@ for (const [file, language] of [['dist/index.html', 'it'], ['dist/en/index.html'
   assert.equal((html.match(/class="drink"/g) || []).length, 44, `${file}: cocktail mancanti`);
   assert.equal((html.match(/class="food-category"/g) || []).length, 4, `${file}: categorie food mancanti`);
   assert.equal((html.match(/class="event-card reveal"/g) || []).length, 3, `${file}: eventi mancanti`);
-  assert.equal((html.match(/class="gallery-tile /g) || []).length, 7, `${file}: foto del locale mancanti`);
+  assert.equal((html.match(/class="gallery-tile /g) || []).length, 6, `${file}: foto del locale mancanti`);
+  assert.ok(html.includes('class="story-photo reveal"><img src="/images/mario-al-banco.webp"'), `${file}: foto di Mario non aggiornata`);
   assert.ok(html.includes('tel:+393348720911'), `${file}: numero errato`);
   assert.ok(html.includes('Via Cairoli 21'), `${file}: indirizzo mancante`);
   assert.ok(!html.includes('€'), `${file}: non sono previsti prezzi`);

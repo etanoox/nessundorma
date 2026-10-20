@@ -13,6 +13,9 @@ for (const [file, language] of [['dist/index.html', 'it'], ['dist/en/index.html'
   assert.ok(html.includes('class="story-photo reveal"><img src="/images/mario-al-banco.webp"'), `${file}: foto di Mario non aggiornata`);
   assert.ok(html.includes('tel:+393348720911'), `${file}: numero errato`);
   assert.ok(html.includes('Via Cairoli 21'), `${file}: indirizzo mancante`);
+  assert.ok(html.includes('data-cookie-preferences') === Boolean(process.env.PUBLIC_GTM_ID), `${file}: comando preferenze non coerente con la configurazione`);
+  assert.ok(html.includes(`href="${language === 'it' ? '/privacy/' : '/en/privacy/'}"`), `${file}: informativa non collegata`);
+  assert.ok(!/<(?:script|iframe)\b[^>]*\ssrc="https?:\/\/[^" ]*(?:googletagmanager|google-analytics|google\.com)/i.test(html), `${file}: servizio Google caricato prima del consenso`);
   assert.ok(!html.includes('€'), `${file}: non sono previsti prezzi`);
   assert.ok(!/Lorem ipsum|TODO|placeholder/i.test(html), `${file}: testo provvisorio`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
@@ -30,4 +33,12 @@ for (const [file, language] of [['dist/index.html', 'it'], ['dist/en/index.html'
 }
 const cssDir = await readdir('dist/_astro');
 assert.ok(cssDir.some(x => x.endsWith('.css')), 'CSS compilato mancante');
+for (const [file, language] of [['dist/privacy/index.html', 'it'], ['dist/en/privacy/index.html', 'en']]) {
+  const html = await readFile(file, 'utf8');
+  assert.ok(html.includes(`<html lang="${language}">`), `${file}: lingua errata`);
+  assert.ok(html.includes('vanilla-cookieconsent') === Boolean(process.env.PUBLIC_GTM_ID), `${file}: informativa cookie incoerente`);
+  assert.ok(!/<(?:script|iframe)\b[^>]*\ssrc="https?:\/\/[^" ]*(?:googletagmanager|google-analytics|google\.com)/i.test(html), `${file}: servizio Google caricato prima del consenso`);
+}
+const licence = await readFile('dist/licenses/cookieconsent.txt', 'utf8');
+assert.ok(licence.startsWith('MIT License') && licence.includes('Orest Bida'), 'Licenza CookieConsent mancante');
 console.log('Verifica completata.');

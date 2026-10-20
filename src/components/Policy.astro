@@ -1,0 +1,72 @@
+---
+import '@fontsource/cormorant-garamond/latin-500.css';
+import '@fontsource/cormorant-garamond/latin-500-italic.css';
+import '@fontsource/manrope/latin-400.css';
+import '@fontsource/manrope/latin-500.css';
+import '../styles/global.css';
+import ConsentHead from './ConsentHead.astro';
+import ConsentRuntime from './ConsentRuntime.astro';
+import { consentConfig } from '../lib/consent-config';
+import { site } from '../data/site';
+interface Props { lang: 'it' | 'en' }
+const { lang } = Astro.props;
+const it = lang === 'it';
+const l = (a: string, b: string) => it ? a : b;
+const canonical = Astro.site ? new URL(it ? '/privacy/' : '/en/privacy/', Astro.site).href : undefined;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <ConsentHead />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#211918" />
+    <meta name="description" content={l('Informativa su privacy, cookie e servizi esterni del sito Nessun Dorma ad Agira.', 'Privacy, cookies and external services on the Nessun Dorma website in Agira.')} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="alternate" hreflang="it" href={Astro.site ? new URL('/privacy/', Astro.site).href : '/privacy/'} />
+    <link rel="alternate" hreflang="en" href={Astro.site ? new URL('/en/privacy/', Astro.site).href : '/en/privacy/'} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{l('Privacy e cookie | Nessun Dorma', 'Privacy and cookies | Nessun Dorma')}</title>
+  </head>
+  <body class="policy-page">
+    <a href="#main" class="skip-link">{l('Vai al contenuto', 'Skip to content')}</a>
+    <header class="policy-header wrap"><a href={it ? '/' : '/en/'}>← Nessun Dorma</a><a href={it ? '/en/privacy/' : '/privacy/'} lang={it ? 'en' : 'it'}>{it ? 'EN' : 'IT'}</a></header>
+    <main id="main" class="policy-content wrap">
+      <p class="eyebrow"><span class="tiny-line"></span>Nessun Dorma · Agira</p>
+      <h1>{l('Privacy e cookie.', 'Privacy and cookies.')}</h1>
+      <p class="policy-lead">{l('Come funziona questo sito, quali dati possono essere trattati e come modificare le tue preferenze.', 'How this website works, which data may be processed and how to change your preferences.')}</p>
+      <p>{l('Ultimo aggiornamento: 20 ottobre 2026.', 'Last updated: 20 October 2026.')}</p>
+
+      <section aria-labelledby="controller"><h2 id="controller">{l('Chi gestisce il sito', 'Who operates the site')}</h2>
+        <p>{l(`Questo sito presenta il Nessun Dorma Cocktail Bar, ${site.address}, ${site.city} (EN), Italia. Per richieste relative al sito e ai dati personali puoi chiamare ${site.phone}.`, `This website presents Nessun Dorma Cocktail Bar, ${site.address}, ${site.city} (EN), Italy. For enquiries about this site and personal data, call ${site.phone}.`)}</p>
+        <p>{l('La denominazione legale completa del titolare e un recapito scritto dedicato devono essere confermati dal gestore dell’attività e integrati in questa informativa.', 'The operator must confirm the controller’s full legal identity and a dedicated written contact address for inclusion in this notice.')}</p>
+      </section>
+
+      <section aria-labelledby="technical"><h2 id="technical">{l('Accesso al sito e dati tecnici', 'Website access and technical data')}</h2>
+        <p>{l('Il sito è distribuito tramite Cloudflare Pages. Quando apri una pagina, il servizio può trattare indirizzo IP, dati del browser, data e ora della richiesta e informazioni tecniche necessarie a distribuire il contenuto e proteggere il servizio. La base giuridica è l’interesse legittimo alla gestione e sicurezza del sito. La conservazione dei log e i trasferimenti effettivi dipendono dalle impostazioni e dai contratti del gestore, ancora da verificare.', 'The site is delivered through Cloudflare Pages. When you open a page, the service may process IP address, browser data, request time and technical information needed to deliver content and protect the service. The legal basis is the legitimate interest in operating and securing the site. Log retention and actual transfers depend on the operator’s settings and agreements, which remain to be checked.')}</p>
+        <p>{l('Immagini e caratteri tipografici sono serviti dal sito stesso. Non sono presenti moduli di contatto o prenotazione. Se telefoni al locale, i dati della chiamata vengono trattati per rispondere alla tua richiesta secondo le modalità del gestore telefonico e dell’attività.', 'Images and fonts are served by this site. There are no contact or booking forms. If you call the bar, call details are processed to respond to your enquiry according to the phone provider’s and business’s arrangements.')}</p>
+      </section>
+
+      <section id="cookie" aria-labelledby="cookies"><h2 id="cookies">{l('Cookie e preferenze', 'Cookies and preferences')}</h2>
+        {consentConfig.analyticsEnabled && <p>{l(`La libreria locale vanilla-cookieconsent memorizza il cookie tecnico ${consentConfig.cookieName}: categorie scelte, identificativo, date e revisione. Dura al massimo ${consentConfig.preferenceDays} giorni dalla scelta e serve a ricordare e documentare la preferenza. Il suo codice e la licenza MIT sono distribuiti con il sito. La scelta resta sul dispositivo e non viene inviata a un fornitore esterno di banner.`, `The locally hosted vanilla-cookieconsent library stores the necessary ${consentConfig.cookieName} cookie: chosen categories, ID, dates and revision. It lasts up to ${consentConfig.preferenceDays} days after your choice and records your preference. Its code and MIT licence are delivered with the site. The choice stays on your device and is not sent to an external banner provider.`)}</p>}
+        {consentConfig.analyticsEnabled ? <>
+          <p>{l('Con il tuo consenso facoltativo, Google Tag Manager attiva Google Analytics 4 per misurare visite e utilizzo del sito. Google può ricevere identificatori, pagine consultate, provenienza e dati tecnici. Senza consenso non carichiamo i tag Google né inviamo misurazioni senza cookie. Le funzioni pubblicitarie rimangono negate.', 'With your optional consent, Google Tag Manager activates Google Analytics 4 to measure visits and site usage. Google may receive identifiers, viewed pages, referral and technical data. Without consent, we do not load Google tags or send cookieless measurements. Advertising functions remain denied.')}</p>
+          <p>{l(`I cookie _ga e _ga_* hanno una durata massima impostata a ${consentConfig.analyticsCookieDays} giorni, senza rinnovo a ogni visita; il browser può limitarla. La conservazione dei dati nei sistemi Google è distinta dalla scadenza dei cookie e va verificata nel pannello dell’account.`, `The _ga and _ga_* cookies have a configured maximum lifetime of ${consentConfig.analyticsCookieDays} days, without renewal on each visit; your browser may shorten it. Retention in Google systems differs from cookie lifetime and must be checked in the account settings.`)}</p>
+        </> : <p>{l('Attualmente non sono configurati Google Tag Manager o Google Analytics su questo sito. Non sono attivi cookie facoltativi, non viene creato un cookie di preferenza e il banner non compare.', 'Google Tag Manager and Google Analytics are currently not configured on this website. No optional cookies are active, no preference cookie is created and no banner appears.')}</p>}
+        {consentConfig.analyticsEnabled && <p>{l('Puoi aprire le preferenze dal footer per modificare o revocare la scelta. Se revochi il consenso, il sito disabilita il tag, elimina i cookie Analytics di prima parte accessibili e ricarica la pagina per interrompere gli script già avviati. La revoca non cancella automaticamente i dati raccolti prima.', 'You can open preferences from the footer to change or withdraw your choice. If you withdraw consent, the site disables the tag, removes accessible first-party Analytics cookies and reloads the page to stop scripts already running. Withdrawal does not automatically erase previously collected data.')}</p>}
+        {consentConfig.analyticsEnabled && <button type="button" class="button button-outline" data-cookie-preferences disabled>{l('Modifica le preferenze', 'Change preferences')}</button>}
+      </section>
+
+      <section aria-labelledby="external"><h2 id="external">{l('Collegamenti esterni', 'External links')}</h2>
+        <p>{l('I link a Google Maps, Instagram e Facebook sono semplici collegamenti: questi servizi non si caricano mentre navighi nel sito. Quando li apri, lasci il sito e il rispettivo fornitore può trattare i tuoi dati secondo la propria informativa. Non incorporiamo mappe, video o feed social.', 'Google Maps, Instagram and Facebook are ordinary outbound links: these services do not load while you browse this site. When you open them, you leave this site and the respective provider may process your data under its own notice. We do not embed maps, videos or social feeds.')}</p>
+      </section>
+
+      <section aria-labelledby="rights"><h2 id="rights">{l('I tuoi diritti e i contenuti', 'Your rights and content')}</h2>
+        <p>{l('Nei casi previsti dal GDPR puoi chiedere accesso, rettifica, cancellazione, limitazione, opposizione e portabilità dei tuoi dati. Puoi anche proporre reclamo all’autorità di controllo competente. Usa il recapito indicato sopra per contattare l’attività; un recapito scritto dedicato verrà aggiunto dopo conferma.', 'Where the GDPR applies, you may request access, correction, erasure, restriction, objection and portability of your data. You may also complain to a competent supervisory authority. Contact the business using the number above; a dedicated written contact will be added after confirmation.')}</p>
+        <p>{l('Fotografie, logo e testi sono materiali del locale o dei rispettivi titolari. La pubblicazione sul sito non concede una licenza generale di riutilizzo. Orari e contenuti dei menu possono cambiare: per informazioni aggiornate contatta il locale.', 'Photographs, logo and text belong to the bar or their respective rights holders. Their publication does not grant a general reuse licence. Opening hours and menu content may change: contact the bar for current information.')}</p>
+      </section>
+    </main>
+    <footer class="policy-footer wrap"><span>© {new Date().getFullYear()} Nessun Dorma · Agira</span>{consentConfig.analyticsEnabled && <button type="button" class="cookie-preferences" data-cookie-preferences disabled>{l('Preferenze cookie', 'Cookie preferences')}</button>}<a href={it ? '/' : '/en/'}>{l('Torna al sito', 'Back to the website')}</a></footer>
+    {consentConfig.analyticsEnabled && <ConsentRuntime />}
+  </body>
+</html>

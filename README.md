@@ -14,12 +14,13 @@ npm run dev
 Apri l’indirizzo mostrato nel Terminale, normalmente `http://localhost:4321`.
 
 ```bash
+npm run check
 npm run build
 npm run verify
 npm run preview
 ```
 
-`dist/` è il sito compilato. Le due lingue sono pagine statiche complete. Il menu food è interamente statico; le sei categorie cocktail sono espandibili. Le locandine si aprono a dimensione maggiore e funzionano anche senza JavaScript come link alle immagini.
+`dist/` è il sito compilato. Home e informativa privacy hanno ciascuna una pagina statica in italiano e in inglese. Il menu food è interamente statico; le sei categorie cocktail sono espandibili. Le locandine si aprono a dimensione maggiore e funzionano anche senza JavaScript come link alle immagini.
 
 ## GitHub e Cloudflare Pages
 
@@ -41,8 +42,10 @@ Non servono database, funzioni server o un adattatore Cloudflare. Nessun servizi
 | Colori, tipografia, layout e responsive | `src/styles/global.css` |
 | Fotografie e logo ufficiale | `public/images/` |
 | Locandine | `public/posters/` |
+| Privacy e cookie (IT/EN) | `src/components/Policy.astro`, `docs/cookie-consent.md` |
+| Configurazione consenso | `src/lib/consent-config.ts` |
 
-Le foto sono fornite da Giuseppe per questo progetto. Il logo ufficiale è conservato senza ridisegno. Le fotografie sono ottimizzate in WebP con conversione in sRGB; il ritaglio visivo dipende dal layout. I font Cormorant Garamond e Manrope sono serviti localmente dai pacchetti Fontsource. Non vengono caricati font, mappe o feed social da terzi all’apertura della pagina. I collegamenti esterni si attivano solo quando il visitatore li apre. Nessun analytics, cookie di tracciamento, form o invio automatico è integrato.
+Le foto sono fornite da Giuseppe per questo progetto. Il logo ufficiale è conservato senza ridisegno. Le fotografie sono ottimizzate in WebP con conversione in sRGB; il ritaglio visivo dipende dal layout. I font Cormorant Garamond e Manrope sono serviti localmente dai pacchetti Fontsource. Non vengono caricati font, mappe o feed social da terzi all’apertura della pagina. I collegamenti esterni si attivano solo quando il visitatore li apre. La versione corrente non attiva Analytics o cookie facoltativi. L’infrastruttura di consenso è pronta ma resta inattiva finché non sono configurati entrambi gli ID Google propri del locale; vedi `docs/cookie-consent.md`. Non sono presenti form o invii automatici.
 
 I sette nuovi scatti sono distribuiti tra il racconto del locale (Mario al lavoro) e la galleria (arco, specchio, dettagli del banco, dipinto, parete in pietra e carambola). Lo scatto della parete era allegato sia in JPG sia in WebP: sul sito appare una sola volta in WebP.
 

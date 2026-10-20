@@ -1,0 +1,13 @@
+---
+import { consentConfig } from '../lib/consent-config';
+---
+{consentConfig.analyticsEnabled && <script is:inline define:vars={{ measurementId: consentConfig.measurementId }}>
+  // Consent Mode Basic: these local defaults do not load a Google resource.
+  window['ga-disable-' + measurementId] = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('consent', 'default', {
+    analytics_storage: 'denied', ad_storage: 'denied',
+    ad_user_data: 'denied', ad_personalization: 'denied'
+  });
+</script>}

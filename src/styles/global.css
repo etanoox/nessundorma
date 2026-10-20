@@ -210,6 +210,7 @@ address{font-family:var(--serif);font-size:34px;font-style:normal;line-height:1.
 .footer-brand{width:175px;height:52px}
 .footer-brand img{width:199px;left:-12px;top:-18px}
 .site-footer p{font-size:12px;color:var(--muted)}
+.site-footer p a{text-decoration:underline;text-underline-offset:3px;color:var(--cream)}
 .site-footer .text-link{font-size:12px}
 .footer-links{display:flex;align-items:center;gap:20px;font-size:12px}
 .footer-links>a:not(.text-link):hover{text-decoration:underline;text-underline-offset:4px}

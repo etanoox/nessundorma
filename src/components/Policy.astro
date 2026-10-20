@@ -66,7 +66,7 @@ const canonical = Astro.site ? new URL(it ? '/privacy/' : '/en/privacy/', Astro.
         <p>{l('Fotografie, logo e testi sono materiali del locale o dei rispettivi titolari. La pubblicazione sul sito non concede una licenza generale di riutilizzo. Orari e contenuti dei menu possono cambiare: per informazioni aggiornate contatta il locale.', 'Photographs, logo and text belong to the bar or their respective rights holders. Their publication does not grant a general reuse licence. Opening hours and menu content may change: contact the bar for current information.')}</p>
       </section>
     </main>
-    <footer class="policy-footer wrap"><span>© {new Date().getFullYear()} Nessun Dorma · Agira</span>{consentConfig.analyticsEnabled && <button type="button" class="cookie-preferences" data-cookie-preferences disabled>{l('Preferenze cookie', 'Cookie preferences')}</button>}<a href={it ? '/' : '/en/'}>{l('Torna al sito', 'Back to the website')}</a></footer>
+    <footer class="policy-footer wrap"><span>© {new Date().getFullYear()} Nessun Dorma · Agira<br />{l('Realizzato con il ♥ da', 'Made with ♥ by')} <a href="https://etanoox.me/" target="_blank" rel="noopener noreferrer">Giuseppe Ricceri</a></span>{consentConfig.analyticsEnabled && <button type="button" class="cookie-preferences" data-cookie-preferences disabled>{l('Preferenze cookie', 'Cookie preferences')}</button>}<a href={it ? '/' : '/en/'}>{l('Torna al sito', 'Back to the website')}</a></footer>
     {consentConfig.analyticsEnabled && <ConsentRuntime />}
   </body>
 </html>

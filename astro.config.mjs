@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
-const site = process.env.SITE_URL;
+const site = process.env.SITE_URL || 'https://nessundormapub.it';
 export default defineConfig({
   ...(site ? { site } : {}),
   output: 'static',

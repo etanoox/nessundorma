@@ -28,7 +28,7 @@ npm run preview
 2. Su Cloudflare Pages collega il repository.
 3. Imposta comando di build `npm run build` e directory di output `dist`.
 4. Imposta `NODE_VERSION` a `22.16.0` o una versione successiva compatibile.
-5. Quando il dominio definitivo è confermato, aggiungi la variabile `SITE_URL` con il suo indirizzo HTTPS (senza percorsi) e ricompila. Verranno generati canonical, alternate assoluti, sitemap e robots.txt con il dominio corretto.
+5. Il dominio predefinito è `https://nessundormapub.it` per canonical, alternate, sitemap e robots.txt. `SITE_URL` consente di usare un dominio diverso in staging.
 
 Non servono database, funzioni server o un adattatore Cloudflare. Nessun servizio a pagamento è integrato nel progetto. La configurazione segue la documentazione ufficiale di [Cloudflare Pages per Astro](https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/).
 
@@ -45,7 +45,7 @@ Non servono database, funzioni server o un adattatore Cloudflare. Nessun servizi
 | Privacy e cookie (IT/EN) | `src/components/Policy.astro`, `docs/cookie-consent.md` |
 | Configurazione consenso | `src/lib/consent-config.ts` |
 
-Le foto sono fornite da Giuseppe per questo progetto. Il logo ufficiale è conservato senza ridisegno. Le fotografie sono ottimizzate in WebP con conversione in sRGB; il ritaglio visivo dipende dal layout. I font Cormorant Garamond e Manrope sono serviti localmente dai pacchetti Fontsource. Non vengono caricati font, mappe o feed social da terzi all’apertura della pagina. I collegamenti esterni si attivano solo quando il visitatore li apre. La versione corrente non attiva Analytics o cookie facoltativi. L’infrastruttura di consenso è pronta ma resta inattiva finché non sono configurati entrambi gli ID Google propri del locale; vedi `docs/cookie-consent.md`. Non sono presenti form o invii automatici.
+Le foto sono fornite da Giuseppe per questo progetto. Il logo ufficiale è conservato senza ridisegno. Le fotografie sono ottimizzate in WebP con conversione in sRGB; il ritaglio visivo dipende dal layout. I font Cormorant Garamond e Manrope sono serviti localmente dai pacchetti Fontsource. Non vengono caricati font, mappe o feed social da terzi all’apertura della pagina. I collegamenti esterni si attivano solo quando il visitatore li apre. Analytics è configurato con gli ID del locale ma si attiva soltanto dopo consenso esplicito alle statistiche. Il banner e le preferenze sono disponibili in italiano e inglese; vedi `docs/cookie-consent.md`. Non sono presenti form o invii automatici.
 
 I sette nuovi scatti sono distribuiti tra il racconto del locale (Mario al lavoro) e la galleria (arco, specchio, dettagli del banco, dipinto, parete in pietra e carambola). Lo scatto della parete era allegato sia in JPG sia in WebP: sul sito appare una sola volta in WebP.
 

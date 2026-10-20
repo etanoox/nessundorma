@@ -3,6 +3,7 @@ export const site = {
   phone: '+39 334 872 0911',
   phoneHref: 'tel:+393348720911',
   address: 'Via Cairoli 21',
+  postalCode: '94011',
   city: 'Agira',
   instagram: 'https://www.instagram.com/nessundormaagira/',
   facebook: 'https://www.facebook.com/share/1GaR4AStks/',

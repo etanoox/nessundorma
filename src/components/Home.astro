@@ -21,13 +21,16 @@ const languageIndex = it ? 0 : 1;
 const title = l('Nessun Dorma | Cocktail bar e pub ad Agira', 'Nessun Dorma | Cocktail bar & pub in Agira');
 const description = l('Cocktail, focacce, musica e giochi tra le pareti di pietra del Nessun Dorma. Scopri il menu e vieni a trovarci in Via Cairoli 21, Agira.', 'Cocktails, focaccia, music and games inside Nessun Dorma’s stone walls. Explore the menu and find us at Via Cairoli 21, Agira, Sicily.');
 const url = Astro.site ? new URL(it ? '/' : '/en/', Astro.site).href : undefined;
+const socialImage = Astro.site ? new URL('/images/atmosfera.webp', Astro.site).href : undefined;
 const nav = [
   ['locale', l('Il locale', 'The bar')], ['food', 'Food'], ['cocktail', 'Cocktail'],
   ['servizi', l('Da vivere', 'Stay a while')], ['eventi', l('Eventi', 'Events')], ['contatti', l('Dove siamo', 'Find us')],
 ];
 const schema = {
   '@context': 'https://schema.org', '@type': 'BarOrPub', name: site.name,
-  telephone: site.phone, address: { '@type': 'PostalAddress', streetAddress: site.address, addressLocality: site.city, addressCountry: 'IT' },
+  telephone: site.phone, priceRange: '€', servesCuisine: l('Focacce e taglieri', 'Focaccia and sharing boards'),
+  ...(socialImage ? { image: socialImage } : {}),
+  address: { '@type': 'PostalAddress', streetAddress: site.address, postalCode: site.postalCode, addressLocality: site.city, addressCountry: 'IT' },
   ...(url ? { url } : {}), sameAs: [site.instagram, site.facebook],
   openingHoursSpecification: [
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday','Wednesday','Thursday'], opens: '17:00', closes: '23:00' },
@@ -46,6 +49,7 @@ const schema = {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    {socialImage && <meta property="og:image" content={socialImage} />}
     <meta property="og:locale" content={it ? 'it_IT' : 'en_GB'} />
     {url && <><link rel="canonical" href={url} /><meta property="og:url" content={url} /></>}
     <link rel="alternate" hreflang="it" href={Astro.site ? new URL('/', Astro.site).href : '/'} />

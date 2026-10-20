@@ -16,7 +16,7 @@ for (const [file, language] of [['dist/index.html', 'it'], ['dist/en/index.html'
   assert.ok(html.includes('data-cookie-preferences') === (process.env.PUBLIC_ANALYTICS_ENABLED !== 'false'), `${file}: comando preferenze non coerente con la configurazione`);
   assert.ok(html.includes(`href="${language === 'it' ? '/privacy/' : '/en/privacy/'}"`), `${file}: informativa non collegata`);
   assert.ok(!/<(?:script|iframe)\b[^>]*\ssrc="https?:\/\/[^" ]*(?:googletagmanager|google-analytics|google\.com)/i.test(html), `${file}: servizio Google caricato prima del consenso`);
-  assert.ok(!html.includes('€'), `${file}: non sono previsti prezzi`);
+  assert.ok(!/\b(?:price|prezzo)\s*[:=]\s*["']?\d|\d\s*€/i.test(html), `${file}: non sono previsti prezzi specifici`);
   assert.ok(!/Lorem ipsum|TODO|placeholder/i.test(html), `${file}: testo provvisorio`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(ids.length, new Set(ids).size, `${file}: ID duplicati`);
@@ -28,7 +28,11 @@ for (const [file, language] of [['dist/index.html', 'it'], ['dist/en/index.html'
   const json = JSON.parse(html.match(/type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/)[1]);
   assert.equal(json['@type'], 'BarOrPub');
   assert.equal(json.openingHoursSpecification[1].closes, '03:00');
-  assert.ok(!('priceRange' in json), 'Nessuna fascia di prezzo dichiarata');
+  assert.equal(json.priceRange, '€');
+  assert.equal(json.address.postalCode, '94011');
+  assert.equal(json.servesCuisine, language === 'it' ? 'Focacce e taglieri' : 'Focaccia and sharing boards');
+  assert.equal(json.image, 'https://nessundormapub.it/images/atmosfera.webp');
+  assert.ok(html.includes('<meta property="og:image" content="https://nessundormapub.it/images/atmosfera.webp"'), `${file}: immagine social mancante`);
   console.log(`${file}: 44 cocktail, 4 categorie food, 3 eventi, link e dati strutturati OK.`);
 }
 const cssDir = await readdir('dist/_astro');
